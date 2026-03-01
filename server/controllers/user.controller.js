@@ -2,6 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import bcrypt from 'bcrypt'
 import db from '../config/db.js'
 import generateToken from '../config/token.js';
+import 'dotenv/config'
 
 export const signup = async (req, res) => {
     if (req.body.profile_image !== '') {
