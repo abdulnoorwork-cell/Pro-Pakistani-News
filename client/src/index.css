@@ -74,9 +74,6 @@ body {
 }
 
 @media screen and (max-width: 400px) {
-    .news_card figure {
-        height: 100px
-    }
     .my_account_sidebar {
         display: flex;
         flex-direction: column;
@@ -89,7 +86,7 @@ body {
 @media screen and (max-width: 367px) {
 
     .news_card figure {
-        height: 80px
+        height: 100px
     }
 
     /* .main_images {
