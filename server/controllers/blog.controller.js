@@ -82,3 +82,12 @@ export const getSingleBlog = (req, res) => {
         res.status(200).json(data)
     })
 }
+
+export const getSearchBlogs = (req,res) => {
+    const search = req.query.q;
+    const sql = "SELECT * FROM blogs WHERE title LIKE ?";
+    db.query(sql,[`%${search}%`], (err,data)=>{
+        if(err) return res.status(500).json(err)
+            res.json(data)
+    })
+}
