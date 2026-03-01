@@ -72,7 +72,7 @@ const Navbar = () => {
             </li>
           </ul>
           {/* Mobile Menu */}
-          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] min-h-screen pb-5 z-50 text-xl transition-all duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
+          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] min-h-screen z-50 text-xl transition-all duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
             <span onClick={() => setMobileMenu(false)} className='text-[#249991] cursor-pointer text-2xl mb-4 ml-[10px] mt-1.5'>
               <IoClose />
             </span>
@@ -92,9 +92,6 @@ const Navbar = () => {
             <hr className='border-t-4 border border-[rgba(36,42,58,.1)] my-4' />
             <li className={`py-[10px] pl-5 ${activePage === 'Home' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
               <NavLink onClick={() => { setActivePage('Home'); setMobileMenu(false) }} to={'/'}>Home</NavLink>
-            </li>
-            <li className={`py-[10px] pl-5`}>
-              <NavLink>About</NavLink>
             </li>
             <li className={`py-[10px] pl-5 ${activePage === 'Contact' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
               <NavLink onClick={() => { setActivePage('Contact'); setMobileMenu(false) }} to={'/contact'}>Contact</NavLink>
