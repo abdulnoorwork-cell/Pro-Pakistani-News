@@ -19,7 +19,7 @@ import Contact from './pages/Contact'
 const App = () => {
   const { token, userRole } = useContext(AppContext);
   return (
-    <div>
+    <div className='overflow-x-hidden'>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path='/' element={<Home />} />

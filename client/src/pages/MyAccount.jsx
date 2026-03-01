@@ -12,6 +12,7 @@ import profile from '../assets/profile_image.png';
 // import PageBanner from '../components/PageBanner'
 import { IoClose } from "react-icons/io5";
 import { GrLogout } from "react-icons/gr";
+import { RxDashboard } from "react-icons/rx";
 
 const MyAccount = () => {
     const [label, setLabel] = useState('My details')
@@ -96,7 +97,7 @@ const MyAccount = () => {
     }
 
     return (
-        <div className='min-h-[95vh]'>
+        <div className='min-h-[85vh]'>
             {/* <PageBanner text={'My Account'} /> */}
             <div className='container mx-auto px-3'>
                 <div className="flex flex-wrap items-center space-x-2 text-sm text-gray-800 font-medium mt-8 mb-5">
@@ -120,6 +121,11 @@ const MyAccount = () => {
                                 <FaRegEdit />
                                 <p className='text-gray-600' style={{ fontFamily: 'Urbanist' }}>Edit Profile</p>
                             </div>
+                            {userRole === "admin" ?
+                                <div onClick={() => {setModel(true);navigate('/admin')}} className='flex items-center gap-2 px-3 py-2 rounded cursor-pointer bg-[#f6f9fa]'>
+                                    <RxDashboard />
+                                    <p className='text-gray-600' style={{ fontFamily: 'Urbanist' }}>Dashboard</p>
+                                </div> : null}
                             <div onClick={logout} className='flex items-center gap-2 px-3 py-2 rounded cursor-pointer bg-[#f6f9fa]'>
                                 <GrLogout />
                                 <p className='text-gray-600' style={{ fontFamily: 'Urbanist' }}>Logout</p>
@@ -131,14 +137,14 @@ const MyAccount = () => {
                                 <figure>
                                     <img src={userData?.image ? JSON.parse(userData?.image) : previewImage} className='w-[85px] h-[85px] rounded-full' alt="" />
                                 </figure>
-                                <p style={{fontFamily:'Lato'}} className='text-gray-800 font-semibold text-2xl'>{userData?.name}</p>
+                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-semibold text-2xl'>{userData?.name}</p>
                             </div>
                             <div className='mt-5'>
-                                <p style={{fontFamily:'Lato'}} className='text-gray-800 font-medium text-lg'>Email :</p>
+                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-medium text-lg'>Email :</p>
                                 <h6 className='text-gray-600 text-sm'>{userData?.email}</h6>
                             </div>
                             <div className='mt-5'>
-                                <p style={{fontFamily:'Lato'}} className='text-gray-800 font-medium text-lg'>Phone :</p>
+                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-medium text-lg'>Phone :</p>
                                 <h6 className='text-gray-600 text-sm'>{userData?.phone}</h6>
                             </div>
                         </div>

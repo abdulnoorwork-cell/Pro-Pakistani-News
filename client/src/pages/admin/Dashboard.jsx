@@ -42,41 +42,41 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='flex-1 px-4 py-8 lg:px-10 bg-blue-50/50'>
+    <div className='flex-1 px-4 py-8 lg:px-10 bg-[#f6f9faf1]'>
       <div className='flex flex-wrap gap-4'>
         <div className='flex items-center gap-3 bg-white p-4 min-w-58 rounded shadow cursor-pointer hover:scale-105 transition-all'>
           <img src={dashboard_icon_1} className='w-14' alt="" />
           <div>
             <p className='text-xl font-semibold text-gray-600'>{blogs.length}</p>
-            <p className='text-gray-500 font-light text-sm'>News</p>
+            <p className='text-gray-500 text-sm'>Total News</p>
           </div>
         </div>
       </div>
       {/* blogs */}
       <div className='max-w-4xl'>
-        <div className='flex items-center gap-3 m-4 mt-6 text-gray-600'>
+        <div className='flex items-center gap-3 m-4 mt-7 text-[#3e484e]'>
           <img src={dashboard_icon_4} alt="" />
-          <p>Latest News</p>
+          <p className='text-sm' style={{fontFamily: 'Poppins'}}>Recent News</p>
         </div>
-        <div className='relative w-full text-sm text-gray-800 overflow-x-auto shadow rounded-lg scrollbar-hide bg-white'>
-          <div className='w-full text-sm text-gray-500'>
-            <div className='blog_list_title text-xs uppercase p-3 border-b text-gray-800 font-semibold grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr] grid-cols-[1fr_2fr_1fr] gap-2'>
-              <label className=' l:px-6'>News</label>
-              <label className=''>Title</label>
-              <label className=' max-sm:hidden'>Category</label>
-              <label className=' max-sm:hidden'>Date</label>
-              <label className='mx-auto'>Action</label>
+        <div className='relative w-full text-sm overflow-x-auto shadow rounded-lg scrollbar-hide bg-white max-sm:max-h-[70vh]'>
+          <div className='w-full text-sm'>
+            <div className='blog_list_title text-xs uppercase p-3 border-b font-semibold sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 text-[#3e484e] font-medium hidden'>
+              <label style={{fontFamily:'Adanda Pro'}}>News</label>
+              <label style={{fontFamily:'Adanda Pro'}}>Title</label>
+              <label className='mx-auto' style={{fontFamily:'Adanda Pro'}}>Category</label>
+              <label className=' max-lg:hidden mx-auto' style={{fontFamily:'Adanda Pro'}}>Date</label>
+              <label className='mx-auto' style={{fontFamily:'Adanda Pro'}}>Action</label>
             </div>
             {blogs.length>0 ? 
             <div>
-              {blogs?.slice(length - 5).reverse().map((blog, index) => (
-                <div key={index} className='blog_list border-b text-gray-800 border-gray-300 text-sm p-3 grid sm:grid-cols-[1fr_3fr_1fr_1fr_1fr] grid-cols-[1fr_2fr_1fr] gap-2 items-center'>
+              {blogs?.slice(length - 6).reverse().map((blog, index) => (
+                <div key={index} className='blog_list border-b text-[#4e5c64] font-medium border-gray-300 text-sm sm:p-3 p-4 grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2.5 items-center'>
                   <figure className=''>
-                    <img className='main_image h-8 w-14' src={blog.image} alt="" />
+                    <img className='main_image sm:h-9 sm:w-[70px] h-[60px] max-sm:mx-auto' src={blog.image} alt="" />
                   </figure>
-                  <p className=' leading-[1.3em]'>{blog.title}</p>
-                  <p className=' max-sm:hidden'>{blog.category}</p>
-                  <p className=' max-sm:hidden'>{new Date(blog.created_At).toDateString()}</p>
+                  <p className='leading-[1.3em] max-sm:w-[200px] max-sm:text-center' style={{fontFamily:'Urbanist'}}>{blog.title}</p>
+                  <p className='leading-[1.3em] mx-auto max-sm:text-[#249991]' style={{fontFamily:'Urbanist'}}>{blog.category}</p>
+                  <p className=' max-lg:hidden mx-auto' style={{fontFamily:'Urbanist'}}>{new Date(blog.created_At).toDateString()}</p>
                   <figure className=' flex text-sm items-center gap-2 mx-auto'>
                     <img src={edit_icon} onClick={() => { navigate(`/admin/updateblog/${blog._id}`) }} alt="" className='md:h-[20px] md:w-[20px] h-5 W-5 hover:scale-110 transition-all cursor-pointer' />
                     <img src={cross_icon} onClick={() => deleteBlog(blog._id)} alt="" className='md:h-[20px] md:w-[20px] h-5 W-5 border border-red-400 rounded-full hover:scale-110 transition-all cursor-pointer' />

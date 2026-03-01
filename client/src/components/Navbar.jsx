@@ -12,7 +12,7 @@ const Navbar = () => {
   const [activePage, setActivePage] = useState('Home')
   const [sticky, setSticky] = useState(false)
   const [dropDown, setDropDown] = useState(false)
-  const { navigate, token } = useContext(AppContext)
+  const { navigate, token, userRole } = useContext(AppContext)
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
       setSticky(true)
@@ -25,11 +25,8 @@ const Navbar = () => {
     <>
       <div className='bg-white xl:block hidden'>
         <div className='container mx-auto px-4 flex items-center text-gray-400 text-[15px]'>
-          <Link className='py-2.5 pr-2.5'>PROPRICE</Link>
-          <Link className='py-2.5 px-2.5'>LENS</Link>
           <Link className='py-2.5 px-2.5'>HOW TO</Link>
           <Link className='py-2.5 px-2.5'>TOOLS</Link>
-          <Link className='py-2.5 px-2.5'>3G, 4G & CALL PACKAGES</Link>
           <Link className='py-2.5 px-2.5'>CAREERS</Link>
           <Link className='py-2.5 px-2.5'>ABOUT</Link>
           <Link to={'/contact'} className='py-2.5 pl-2.5'>CONTACT</Link>
