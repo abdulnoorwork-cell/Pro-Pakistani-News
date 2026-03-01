@@ -71,32 +71,33 @@ const Navbar = () => {
               </span>
             </li>
           </ul>
-          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] h-screen z-50 text-xl transition-all duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
+          {/* Mobile Menu */}
+          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] min-h-screen pb-5 z-50 text-xl transition-all duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
             <span onClick={() => setMobileMenu(false)} className='text-[#249991] cursor-pointer text-2xl mb-4 ml-[10px] mt-1.5'>
               <IoClose />
             </span>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/tech'} className="border-l-[5px] border-[#3498db] pl-[10px]">Tech and Telecom</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/business'} className="border-l-[5px] border-black pl-[10px]">Business</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/carbase'} className="border-l-[5px] border-[#c0392b] pl-[10px]">CarBase</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/sports'} className="border-l-[5px] border-[#249991] pl-[10px]">ProSports</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/education'} className="border-l-[5px] border-[#8e44ad] pl-[10px]">Education</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/health'} className="border-l-[5px] border-[#249991] pl-[10px]">Health</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/social'} className="border-l-[5px] border-[#dd9933] pl-[10px]">Social</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/pakistan'} className="border-l-[5px] border-[#008036] pl-[10px]">Pakistan</NavLink></li>
-            <li className='py-[10px] pl-5' onClick={() => { scrollTo(0, 0); setMobileMenu(false) }}><NavLink to={'/category/international'} className="border-l-[5px] border-[#249991] pl-[10px]">International</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/tech'} className="border-l-[5px] border-[#3498db] pl-[10px]">Tech and Telecom</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/business'} className="border-l-[5px] border-black pl-[10px]">Business</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/carbase'} className="border-l-[5px] border-[#c0392b] pl-[10px]">CarBase</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/sports'} className="border-l-[5px] border-[#249991] pl-[10px]">ProSports</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/education'} className="border-l-[5px] border-[#8e44ad] pl-[10px]">Education</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/health'} className="border-l-[5px] border-[#249991] pl-[10px]">Health</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/social'} className="border-l-[5px] border-[#dd9933] pl-[10px]">Social</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/pakistan'} className="border-l-[5px] border-[#008036] pl-[10px]">Pakistan</NavLink></li>
+            <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/international'} className="border-l-[5px] border-[#249991] pl-[10px]">International</NavLink></li>
             <li className='relative py-[10px] pl-5'>
-              <NavLink to={'/category/world-cup'} className="border-l-[5px] border-[#249991] pl-[10px]">T20 WC 2026</NavLink>
+              <NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/world-cup'} className="border-l-[5px] border-[#249991] pl-[10px]">T20 WC 2026</NavLink>
               <small className='bg-red-500 text-white text-[9px] absolute bottom-[13px] right-[4%] rounded px-1 py-[1px] font-medium'>New</small>
             </li>
             <hr className='border-t-4 border border-[rgba(36,42,58,.1)] my-4' />
-            <li onClick={() => { setActivePage('Home'); setMobileMenu(false) }} className={`py-[10px] pl-5 ${activePage === 'Home' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
-              <NavLink to={'/'}>Home</NavLink>
+            <li className={`py-[10px] pl-5 ${activePage === 'Home' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
+              <NavLink onClick={() => { setActivePage('Home'); setMobileMenu(false) }} to={'/'}>Home</NavLink>
             </li>
-            <li onClick={() => { setActivePage('About'); setMobileMenu(false) }} className={`py-[10px] pl-5 ${activePage === 'About' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
+            <li className={`py-[10px] pl-5`}>
               <NavLink>About</NavLink>
             </li>
-            <li onClick={() => { setActivePage('Contact'); setMobileMenu(false) }} className={`py-[10px] pl-5 ${activePage === 'Contact' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
-              <NavLink to={'/contact'}>Contact</NavLink>
+            <li className={`py-[10px] pl-5 ${activePage === 'Contact' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
+              <NavLink onClick={() => { setActivePage('Contact'); setMobileMenu(false) }} to={'/contact'}>Contact</NavLink>
             </li>
             {!token ? <Link onClick={() => { setActivePage('Login'); setMobileMenu(false) }} to={'/signin'} className={`py-[10px] pl-5 ${activePage === 'Login' ? 'bg-[#eff4f5]' : 'bg-none'}`}>LOGIN</Link> : <Link onClick={() => { setActivePage('My Profile'); setMobileMenu(false) }} to={'/my-account'} className={`py-[10px] pl-5 ${activePage === 'My Profile' ? 'bg-[#eff4f5]' : 'bg-none'}`}>My Profile</Link>}
           </ul>
