@@ -12,7 +12,7 @@ const TechPost = () => {
                 <Heading text="Tech and Telecom" />
                 <div className='text-white flex flex-col lg:flex-row gap-8'>
                     {blogs?.filter(blog => blog.category === "Tech and Telecom").slice(length - 1).reverse().map((blog, index) => (
-                        <div onClick={()=>{navigate(`/blog/blog-detail/${blog?._id}`);scrollTo(0,0)}} key={index} className='group relative overflow-hidden lg:w-[33%] max-w-[430px] h-[420px] relative cursor-pointer'>
+                        <div onClick={()=>{navigate(`/blog/blog-detail/${blog?._id}`);scrollTo(0,0)}} key={index} className='group relative overflow-hidden lg:w-[33%] max-w-[430px] h-[380px] relative cursor-pointer'>
                             <img src={blog?.image} className='h-full w-full absolute top-0 bottom-0 left-0 right-0 group-hover:scale-110 duration-500' alt="" />
                             <div className='w-full min-h-11 absolute left-0 right-auto bottom-0 px-5 py-[17px]' style={{ backgroundImage: 'linear-gradient(360deg, #000 0, rgba(0, 0, 0, .48) 68%, rgba(0, 0, 0, .03) 100%)' }}>
                                 <h3 className='font-bold letter tracking-tight text-2xl leading-[1.2em]'>{blog?.title}</h3>
