@@ -116,7 +116,7 @@ export const login = async (req, res) => {
                 sameSite: "strict",
                 maxAge: 1 * 24 * 60 * 60 * 1000
             })
-            res.status(200).json({ success: true, messege: `Welcome back ${data[0].name}`, data, token })
+            res.status(200).json({ success: true, messege: `Welcome back ${data[0].name}`, data, token,expiresIn: 86400 })
         } else {
             return res.status(400).json("No email exist")
         }

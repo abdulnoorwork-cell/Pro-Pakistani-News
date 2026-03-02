@@ -67,11 +67,11 @@ const AddBlog = () => {
           <img src={!image ? upload_area : URL.createObjectURL(image)} className='rounded cursor-pointer max-h-24 max-w-24' alt="" />
           <input type="file" onChange={(e)=> setImage(e.target.files[0])} hidden id='image' />
         </label>
-        <p className='mt-4'>News title</p>
+        <p className='mt-4 text-sm font-medium'>News title</p>
         <input type="text" placeholder='Type...' value={title} onChange={(e)=>setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#249991] rounded text-sm' required />
-        <p className='mt-4 mb-2'>News Description</p>
+        <p className='mt-4 mb-2 text-sm font-medium'>News Description</p>
         <div ref={editorRef} className='w-full relative min-h-[160px] max-h-[360px] overflow-y-auto'></div>
-        <select defaultValue={0} onChange={(e)=>setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded text-sm'>
+        <select defaultValue={0} onChange={(e)=>setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded text-sm font-medium'>
           <option disabled value={0}>--Select Category--</option>
           <option value="Tech and Telecom">Tech and Telecom</option>
           <option value="Business">Business</option>
@@ -84,7 +84,7 @@ const AddBlog = () => {
           <option value="Social">Social</option>
           <option value="World Cup">World Cup</option>
         </select>
-        <button type='submit' className='mt-7 sm:text-sm text-xs px-8 w-fit py-[10px] bg-[#249991] text-white rounded cursor-pointer' style={{fontFamily:'Poppins'}}>{loading ? 'Ading...' : 'Add News'}</button>
+        <button type='submit' className='mt-7 sm:text-sm text-xs px-8 w-fit py-[10px] bg-[#6367FF] text-white rounded cursor-pointer' style={{fontFamily:'Poppins'}}>{loading ? 'Ading...' : 'Add News'}</button>
       </div>
     </form>
   )

@@ -83,11 +83,86 @@ export const getSingleBlog = (req, res) => {
     })
 }
 
-export const getSearchBlogs = (req,res) => {
+export const getSearchBlogs = (req, res) => {
     const search = req.query.q;
     const sql = "SELECT * FROM blogs WHERE title LIKE ?";
-    db.query(sql,[`%${search}%`], (err,data)=>{
-        if(err) return res.status(500).json(err)
-            res.json(data)
+    db.query(sql, [`%${search}%`], (err, data) => {
+        if (err) return res.status(500).json(err)
+        res.json(data)
+    })
+}
+
+export const updateBlog = async (req, res) => {
+    if (req.body.image !== '') {
+        const { title, description, category } = req.body;
+        const { image } = req.files;
+        if (!title || !description || !image || !category) {
+            return res.status(401).json({ success: false, messege: "All fields are required" })
+        }
+        if (title.length > 120) {
+            return res.status(401).json({ success: false, messege: "maximum title is 120 characters" })
+        }
+        if (title.length < 12) {
+            return res.status(401).json({ success: false, messege: "title contains 12 characters atleast" })
+        }
+        if (description.length < 256) {
+            return res.status(401).json({ success: false, messege: "descrupition contains 256 characters atleast" })
+        }
+        const { blogId } = req.params;
+        const allowedFormat = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+        if (!allowedFormat.includes(image.mimetype)) {
+            return res.status(400).json({ success: false, messege: "Invalid Format! Only jpg, jpeg, png, webp are allowed" });
+        }
+        const cloudinaryResponse = await cloudinary.uploader.upload(image.tempFilePath, {
+            overwrite: true
+        })
+        const imgUrl = cloudinaryResponse.url;
+        if (!cloudinaryResponse || cloudinaryResponse.error) {
+            return console.log(cloudinaryResponse.error)
+        }
+        const sql = 'UPDATE blogs SET title = ?, description = ?, category = ?, image = ? WHERE _id = ?';
+        const values = [
+            title,
+            description,
+            category,
+            imgUrl
+        ];
+        db.query(sql, [...values, blogId], (err, data) => {
+            if (err) {
+                console.log(err)
+                return res.status(500).json({ success: false, messege: "Error in updating blog: " + err });
+            } else {
+                res.status(200).json({ success: true, messege: "Blog updated successfully", data })
+            }
+        })
+        return
+    }
+    const { title, description, category } = req.body;
+    if (!title || !description || !category) {
+        return res.status(401).json({ success: false, messege: "All fields are required" })
+    }
+    if (title.length > 120) {
+        return res.status(401).json({ success: false, messege: "maximum title is 120 characters" })
+    }
+    if (title.length < 12) {
+        return res.status(401).json({ success: false, messege: "title contains 12 characters atleast" })
+    }
+    if (description.length < 256) {
+        return res.status(401).json({ success: false, messege: "descrupition contains 256 characters atleast" })
+    }
+    const { blogId } = req.params;
+    const sql = 'UPDATE blogs SET title = ?, description = ?, category = ? WHERE _id = ?';
+    const values = [
+        title,
+        description,
+        category
+    ];
+    db.query(sql, [...values, blogId], (err, data) => {
+        if (err) {
+            console.log(err)
+            return res.status(500).json({ success: false, messege: "Error in updating blog: " + err });
+        } else {
+            res.status(200).json({ success: true, messege: "Blog updated successfully", data })
+        }
     })
 }

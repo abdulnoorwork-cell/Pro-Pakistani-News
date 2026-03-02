@@ -26,13 +26,13 @@ const Navbar = () => {
   return (
     <>
       <div className='bg-white xl:block hidden'>
-        <div className='container mx-auto px-4 flex items-center text-gray-400 text-[15px]'>
-          <Link className='py-2.5 px-2.5'>HOW TO</Link>
-          <Link className='py-2.5 px-2.5'>TOOLS</Link>
-          <Link className='py-2.5 px-2.5'>CAREERS</Link>
-          <Link className='py-2.5 px-2.5'>ABOUT</Link>
-          <Link to={'/contact'} className='py-2.5 pl-2.5'>CONTACT</Link>
-          {!token ? <Link to={'/signin'} className='py-2.5 pl-2.5'>LOGIN</Link> : <Link to={'/my-account'} className='py-2.5 pl-2.5'>MY PROFILE</Link>}
+        <div className='container mx-auto px-4 flex items-center text-gray-500'>
+          <Link className='py-2.5 px-2.5' style={{ fontFamily: 'Afacad' }}>How To</Link>
+          <Link className='py-2.5 px-2.5' style={{ fontFamily: 'Afacad' }}>Tools</Link>
+          <Link className='py-2.5 px-2.5' style={{ fontFamily: 'Afacad' }}>Careers</Link>
+          <Link className='py-2.5 px-2.5' style={{ fontFamily: 'Afacad' }}>About</Link>
+          <Link to={'/contact'} className='py-2.5 pl-2.5' style={{ fontFamily: 'Afacad' }}>Contact</Link>
+          {!token ? <Link to={'/signin'} className='py-2.5 pl-2.5' style={{ fontFamily: 'Afacad' }}>Login</Link> : <Link to={'/my-account'} className='py-2.5 pl-2.5' style={{ fontFamily: 'Afacad' }}>My Profile</Link>}
         </div>
       </div>
       <header className={`transition-all ease-in-out duration-300 z-30 ${sticky ? 'sticky top-0 border-b border-[#f6f9fa] bg-[#f6f9faf1]' : 'border-none bg-[#f6f9fa]'}`} style={{ transition: 'sticky' }}>
@@ -41,11 +41,13 @@ const Navbar = () => {
             <span onClick={() => setMobileMenu(true)} className='xl:hidden block text-2xl text-gray-500 cursor-pointer'>
               <RiMenu2Fill />
             </span>
-            <figure onClick={() => { navigate('/'); scrollTo(0, 0) }} className='bg-[#249991] py-3.5 px-5 cursor-pointer'>
-              <img src={logo} alt="logo" />
-            </figure>
+            {/* <div onClick={() => { navigate('/'); scrollTo(0, 0) }} className='bg-[#0088cb] py-3.5 px-5 cursor-pointer'>
+            </div> */}
+            <Link to={'/'}>
+              <h1 className='text-[26px] uppercase font-extrabold py-2.5' style={{ fontFamily: 'Outfit' }}>Insightful <span className='text-[#6367FF]' style={{ fontFamily: 'Outfit' }}>News</span></h1>
+            </Link>
           </div>
-          <ul className='relative hidden xl:flex items-center text-[#4e5c64] text-[19px] font-medium text-center'>
+          <ul className='relative hidden xl:flex items-center text-[#4e5c64] uppercase text-sm font-medium text-center'>
             <li onClick={() => { scrollTo(0, 0) }}><NavLink to={'/category/tech'} className="py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300">Tech and Telecom</NavLink></li>
             <li onClick={() => { scrollTo(0, 0) }}><NavLink to={'/category/business'} className="py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300">Business</NavLink></li>
             <li onClick={() => { scrollTo(0, 0) }}><NavLink to={'/category/carbase'} className="py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300">CarBase</NavLink></li>
@@ -72,8 +74,8 @@ const Navbar = () => {
             </li>
           </ul>
           {/* Mobile Menu */}
-          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] min-h-screen z-50 text-xl transition-all duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
-            <span onClick={() => setMobileMenu(false)} className='text-[#249991] cursor-pointer text-2xl mb-4 ml-[10px] mt-1.5'>
+          <ul className={`flex xl:hidden flex-col sm:w-[500px] w-[90%] bg-white fixed top-0 left-[-100%] min-h-screen z-50 transition-all font-medium duration-300 ${mobileMenu ? 'left-[0%]' : 'left-[-100%]'}`}>
+            <span onClick={() => setMobileMenu(false)} className='text-[#6367FF] cursor-pointer text-2xl mb-4 ml-[10px] mt-1.5'>
               <IoClose />
             </span>
             <li className='py-[10px] pl-5'><NavLink onClick={() => { scrollTo(0, 0); setMobileMenu(false) }} to={'/category/tech'} className="border-l-[5px] border-[#3498db] pl-[10px]">Tech and Telecom</NavLink></li>
@@ -96,7 +98,7 @@ const Navbar = () => {
             <li className={`py-[10px] pl-5 ${activePage === 'Contact' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
               <NavLink onClick={() => { setActivePage('Contact'); setMobileMenu(false) }} to={'/contact'}>Contact</NavLink>
             </li>
-            {!token ? <Link onClick={() => { setActivePage('Login'); setMobileMenu(false);setMobileMenu(false) }} to={'/signin'} className={`py-[10px] pl-5 ${activePage === 'Login' ? 'bg-[#eff4f5]' : 'bg-none'}`}>LOGIN</Link> : <Link onClick={() => { setActivePage('My Profile'); setMobileMenu(false) }} to={'/my-account'} className={`py-[10px] pl-5 ${activePage === 'My Profile' ? 'bg-[#eff4f5]' : 'bg-none'}`}>My Profile</Link>}
+            {!token ? <Link onClick={() => { setActivePage('Login'); setMobileMenu(false); setMobileMenu(false) }} to={'/signin'} className={`py-[10px] pl-5 ${activePage === 'Login' ? 'bg-[#eff4f5]' : 'bg-none'}`}>LOGIN</Link> : <Link onClick={() => { setActivePage('My Profile'); setMobileMenu(false) }} to={'/my-account'} className={`py-[10px] pl-5 ${activePage === 'My Profile' ? 'bg-[#eff4f5]' : 'bg-none'}`}>My Profile</Link>}
           </ul>
           <li className={`flex z-40 xl:hidden sm:w-[60%] w-[93%] shadow-md mx-auto text-[16px] transition-all h-full items-center absolute top-[100%] right-[10px] ${searchBox ? 'flex' : 'hidden'}`}>
             <input type="text" placeholder='Search...' className='h-full bg-[white] w-full outline-none px-4' value={search} onChange={(e) => setSearch(e.target.value)} />

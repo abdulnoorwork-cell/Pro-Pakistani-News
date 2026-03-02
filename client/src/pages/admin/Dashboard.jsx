@@ -61,11 +61,11 @@ const Dashboard = () => {
         <div className='relative w-full text-sm overflow-x-auto shadow rounded-lg scrollbar-hide bg-white max-sm:max-h-[70vh]'>
           <div className='w-full text-sm'>
             <div className='blog_list_title text-xs uppercase p-3 border-b font-semibold sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 text-[#3e484e] font-medium hidden'>
-              <label style={{fontFamily:'Adanda Pro'}}>News</label>
-              <label style={{fontFamily:'Adanda Pro'}}>Title</label>
-              <label className='mx-auto' style={{fontFamily:'Adanda Pro'}}>Category</label>
-              <label className=' max-lg:hidden mx-auto' style={{fontFamily:'Adanda Pro'}}>Date</label>
-              <label className='mx-auto' style={{fontFamily:'Adanda Pro'}}>Action</label>
+              <label>News</label>
+              <label>Title</label>
+              <label className='mx-auto'>Category</label>
+              <label className=' max-lg:hidden mx-auto'>Date</label>
+              <label className='mx-auto'>Action</label>
             </div>
             {blogs.length>0 ? 
             <div>
@@ -74,7 +74,7 @@ const Dashboard = () => {
                   <figure className=''>
                     <img className='main_image sm:h-9 sm:w-[70px] h-[60px] max-sm:mx-auto' src={blog.image} alt="" />
                   </figure>
-                  <p className='leading-[1.3em] max-sm:w-[200px] max-sm:text-center' style={{fontFamily:'Urbanist'}}>{blog.title}</p>
+                  <p className='leading-[1.3em] max-sm:w-[200px] max-sm:text-center max-sm:mx-auto' style={{fontFamily:'Urbanist'}}>{blog.title}</p>
                   <p className='leading-[1.3em] mx-auto max-sm:text-[#249991]' style={{fontFamily:'Urbanist'}}>{blog.category}</p>
                   <p className=' max-lg:hidden mx-auto' style={{fontFamily:'Urbanist'}}>{new Date(blog.created_At).toDateString()}</p>
                   <figure className=' flex text-sm items-center gap-2 mx-auto'>

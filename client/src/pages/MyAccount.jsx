@@ -132,19 +132,19 @@ const MyAccount = () => {
                             </div>
                         </div>
                         <div className='bg-[#f6f9fa] w-full rounded-lg p-6 sm:p-8'>
-                            <p className='text-2xl font-semibold text-gray-800 mb-4'>My details</p>
+                            <h6 className='text-2xl font-semibold text-gray-800 mb-4'>My details</h6>
                             <div className='flex items-center gap-3'>
                                 <figure>
                                     <img src={userData?.image ? JSON.parse(userData?.image) : previewImage} className='w-[85px] h-[85px] rounded-full' alt="" />
                                 </figure>
-                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-semibold text-2xl'>{userData?.name}</p>
+                                <p className='text-gray-800 font-semibold text-xl'>{userData?.name}</p>
                             </div>
                             <div className='mt-5'>
-                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-medium text-lg'>Email :</p>
+                                <p className='text-gray-800 font-medium'>Email :</p>
                                 <h6 className='text-gray-600 text-sm'>{userData?.email}</h6>
                             </div>
                             <div className='mt-5'>
-                                <p style={{ fontFamily: 'Lato' }} className='text-gray-800 font-medium text-lg'>Phone :</p>
+                                <p className='text-gray-800 font-medium'>Phone :</p>
                                 <h6 className='text-gray-600 text-sm'>{userData?.phone}</h6>
                             </div>
                         </div>

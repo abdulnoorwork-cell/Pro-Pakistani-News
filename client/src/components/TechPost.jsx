@@ -2,13 +2,14 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { AppContext } from '../context/AppContext';
+import Heading from './Heading';
 
 const TechPost = () => {
     const { blogs,navigate } = useContext(AppContext);
     return (
         <div className='bg-[rgba(28,28,28,1)] py-6 mb-[24px]'>
             <div className="container mx-auto px-4">
-                <h5 className='py-[7px] pl-3.5 mb-2 text-xl font-extrabold leading-[24px] text-[#3498db] border-l-8 uppercase'>Tech and Telecom</h5>
+                <Heading text="Tech and Telecom" />
                 <div className='text-white flex flex-col lg:flex-row gap-8'>
                     {blogs?.filter(blog => blog.category === "Tech and Telecom").slice(length - 1).reverse().map((blog, index) => (
                         <div onClick={()=>{navigate(`/blog/blog-detail/${blog?._id}`);scrollTo(0,0)}} key={index} className='group relative overflow-hidden lg:w-[33%] max-w-[430px] h-[420px] relative cursor-pointer'>
