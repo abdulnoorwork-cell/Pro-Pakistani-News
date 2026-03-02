@@ -89,6 +89,9 @@ h1,h2,h3,h4,h5,h6{
 }
 
 @media screen and (max-width: 367px) {
+    .logo {
+        font-size: 20px;
+    }
 
     .news_card figure {
         height: 100px
@@ -120,6 +123,13 @@ h1,h2,h3,h4,h5,h6{
     .international span, .pak span {
         width: 100%;
     }
+}
+
+@media screen and (max-width: 340px) {
+    .logo {
+        font-size: 18px;
+        line-height: 1.1em
+    }    
 }
 
 @import "tailwindcss";
