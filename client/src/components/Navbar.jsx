@@ -58,11 +58,11 @@ const Navbar = () => {
               <NavLink to={'/category/world-cup'} className="py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300 flex items-center">T20 WC 2026</NavLink>
               <small className='bg-red-500 text-white text-[9px] absolute top-[4%] right-[4%] rounded px-1 py-[1px] font-medium'>New</small>
             </li>
-            <li onClick={() => setDropDown(!dropDown)} className='relative'><NavLink className='py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300 flex items-center gap-1'>More <span><IoMdArrowDropdown /></span></NavLink>
+            <li onClick={() => setDropDown(!dropDown)} className='relative text-sm font-medium'><NavLink className='py-[15px] px-2.5 hover:bg-[#ebf0f1] hover:text-[#242a3a] transition-all duration-300 flex items-center gap-1 text-sm font-medium'>More <span><IoMdArrowDropdown /></span></NavLink>
               <ul className={`flex flex-col absolute top-[100%] bg-white border border-[rgba(36,42,58,.15)] text-[16px] text-[#4e5c64] min-w-[150px] z-20 text-start transition-all duration-200 ${dropDown ? 'min-h-full opacity-100' : 'h-0 opacity-0 overflow-hidden'}`}>
-                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/pakistan'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200">Pakistan</Link>
-                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/international'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200">International</Link>
-                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/social'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200">Social</Link>
+                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/pakistan'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200 text-sm font-medium">Pakistan</Link>
+                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/international'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200 text-sm font-medium">International</Link>
+                <Link onClick={() => { scrollTo(0, 0) }} to={'/category/social'} className="leading-[24px] py-[12.8px] px-2 hover:bg-[#f6f9fa] transition-all duration-200 text-sm font-medium">Social</Link>
               </ul>
             </li>
             <li className={`flex w-full text-[16px] transition-all h-full items-center absolute top-0 right-0 bg-[#ebf0f1] ${searchBox ? 'flex' : 'hidden'}`}>
