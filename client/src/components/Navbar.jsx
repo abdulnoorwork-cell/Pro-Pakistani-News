@@ -44,7 +44,7 @@ const Navbar = () => {
             {/* <div onClick={() => { navigate('/'); scrollTo(0, 0) }} className='bg-[#0088cb] py-3.5 px-5 cursor-pointer'>
             </div> */}
             <Link to={'/'}>
-              <h1 className='logo sm:text-[26px] text-[22px] uppercase font-extrabold py-2.5' style={{ fontFamily: 'Outfit' }}>Insightful <span className='text-[#6367FF]' style={{ fontFamily: 'Outfit' }}>News</span></h1>
+              <h1 className='logo sm:text-[24px] text-[22px] uppercase font-extrabold py-2.5' style={{ fontFamily: 'Outfit' }}>Insightful <span className='text-[#6367FF]' style={{ fontFamily: 'Outfit' }}>News</span></h1>
             </Link>
           </div>
           <ul className='relative hidden xl:flex items-center text-[#4e5c64] uppercase text-sm font-medium text-center'>

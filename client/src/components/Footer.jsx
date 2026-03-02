@@ -15,7 +15,7 @@ const Footer = () => {
       <div className='container mx-auto px-4'>
         <div className='grid lg:grid-cols-3 sm:grid-cols-2 items-center sm:gap-6'>
           <div>
-            <h1 className='text-[26px] uppercase font-extrabold py-2.5' style={{ fontFamily: 'Outfit' }}>Insightful <span className='text-[#6367FF]' style={{ fontFamily: 'Outfit' }}>News</span></h1>
+            <h1 className='text-[24px] uppercase font-extrabold py-2.5' style={{ fontFamily: 'Outfit' }}>Insightful <span className='text-[#6367FF]' style={{ fontFamily: 'Outfit' }}>News</span></h1>
             <p className='text-[12.8px] mt-4'>Insightful News is the premier and most trustworthy resource for all happenings in technology, telecom, business, sports, auto, education, real estate and entertainment news in Pakistan.</p>
           </div>
           <div>
