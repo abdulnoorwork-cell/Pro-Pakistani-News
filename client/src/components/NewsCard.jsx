@@ -10,7 +10,7 @@ const NewsCard = ({blog}) => {
             </figure>
             <div className='mt-2 flex flex-col gap-2'>
                 <p className='text-xs text-gray-500 font-medium'>Created at | {new Date(blog?.created_At).toDateString()}</p>
-                <p className='bg-[#6367FF] text-white w-fit px-3 p-[2px] rounded font-medium text-xs leading-[19.2px]'>{blog?.category}</p>
+                <p className='bg-[#6367FF] text-white w-fit px-3 p-[2px] rounded font-medium text-[10px] leading-[19.2px]'>{blog?.category}</p>
             </div>
             <h6 onClick={()=>{navigate(`/blog/blog-detail/${blog?._id}`);scrollTo(0,0)}} className='w-full font-black cursor-pointer text-[#242a3a] py-[7.5px] leading-[1.2em] text-sm lg:text-base'>{blog?.title}</h6>
         </div>
