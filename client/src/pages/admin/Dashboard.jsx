@@ -58,6 +58,7 @@ const Dashboard = () => {
           <img src={dashboard_icon_4} alt="" />
           <p className='text-sm' style={{fontFamily: 'Poppins'}}>Recent News</p>
         </div>
+        {blogs.length>0 ? 
         <div className='relative w-full text-sm overflow-x-auto shadow rounded-lg scrollbar-hide bg-white max-sm:max-h-[70vh]'>
           <div className='w-full text-sm'>
             <div className='blog_list_title text-xs uppercase p-3 border-b font-semibold sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 text-[#3e484e] font-medium hidden'>
@@ -86,7 +87,7 @@ const Dashboard = () => {
             </div> : 
             <div className='text-gray-800 font-medium text-[16px] text-center py-10'>You don,t have any blogs</div>}
           </div>
-        </div>
+        </div> : <div className='font-medium min-h-[100px] text-sm flex items-center justify-center text-center bg-white rounded-md max-w-2xl'>You don,t have any blogs</div>}
       </div>
     </div >
   )
