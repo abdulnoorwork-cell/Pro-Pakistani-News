@@ -43,7 +43,7 @@ cloudinary.config({
 })
 
 app.get('/',(_,res)=>{
-    res.status(200).json({success: true,messege:"Response from the backend"})
+    res.status(200).json({success: true,messege:"Response from the server"})
 })
 
 app.use('/api/user',userRoutes);
