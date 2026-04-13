@@ -77,6 +77,8 @@ const Signin = () => {
         withCredentials: true
       })
       if (response.data.success) {
+        const expiryTime = Date.now() + 60 * 60 *1000;
+        localStorage.setItem('expiryTime',expiryTime)
         localStorage.setItem('User', JSON.stringify(response.data))
         toast.success(response.data.messege)
         setEmail('');

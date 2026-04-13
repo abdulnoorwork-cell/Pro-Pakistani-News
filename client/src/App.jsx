@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './MainLayout'
 import Home from './pages/Home'
@@ -18,7 +18,23 @@ import Contact from './pages/Contact'
 import AllNews from './pages/AllNews';
 
 const App = () => {
+
   const { token, userRole } = useContext(AppContext);
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      const expiryTime = localStorage.getItem('expiryTime');
+      if(!expiryTime) return;
+      if(Date.now()>expiryTime){
+        localStorage.removeItem();
+        localStorage.removeItem('expiryTime');
+
+        window.location.href = "/signin"
+        window.location.reload();
+      }
+    },60000)
+    return ()=> clearInterval(interval)
+  },[])
+
   return (
     <div>
       <Routes>
