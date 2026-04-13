@@ -15,6 +15,7 @@ import "quill/dist/quill.snow.css";
 import CategoryNews from './pages/CategoryNews';
 import SingleBlog from './pages/SingleBlog';
 import Contact from './pages/Contact'
+import AllNews from './pages/AllNews';
 
 const App = () => {
   const { token, userRole } = useContext(AppContext);
@@ -36,6 +37,7 @@ const App = () => {
           <Route path='/category/international' element={<CategoryNews category="International" />} />
           <Route path='/category/social' element={<CategoryNews category="Social" />} />
           <Route path='/blog/blog-detail/:blog_id' element={<SingleBlog />} />
+          <Route path='/all-news' element={<AllNews />} />
           <Route path='/contact' element={<Contact />} />
         </Route>
         {userRole === "admin" ? <Route path='/admin' element={<Layout />}>

@@ -19,7 +19,7 @@ const UpdateBlog = () => {
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('')
 
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token,fetchBlogs } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
 
   const fetchBog = async () => {
@@ -59,8 +59,10 @@ const UpdateBlog = () => {
       if (response.data.success) {
         toast.success(response.data.messege);
         setLoading(false);
+        await fetchBlogs()
         setTimeout(() => {
           navigate('/admin/listblog')
+          fetchBlogs()
         }, 1000)
       }
       setLoading(false);
@@ -76,8 +78,6 @@ const UpdateBlog = () => {
       quillRef.current = new Quill(editorRef.current, { theme: 'snow' })
     }
   }, [])
-
-  console.log(blog)
 
   return (
     <form onSubmit={onSubmitHandler} className='flex-1 px-4 py-8 lg:py-10 lg:px-14 text-gray-600 h-full min-h-[95vh]'>

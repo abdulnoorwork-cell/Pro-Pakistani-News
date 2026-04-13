@@ -107,7 +107,7 @@ const MyAccount = () => {
                         </span>
                     </Link>
                     <TfiAngleRight />
-                    <span className="text-[#249991] font-semibold">My Account</span>
+                    <span className="text-[#6367FF] font-semibold">My Account</span>
                 </div>
                 <div className=''>
                     <div className='flex md:flex-row flex-col gap-6'>
@@ -170,7 +170,7 @@ const MyAccount = () => {
                         </div>
                         <img src={previewImage} onClick={() => file.current.click()} className='w-[75px] h-[75px] rounded-full cursor-pointer mt-1' alt="profile image" />
                         <input type="file" ref={file} onChange={imageHandler} hidden />
-                        <button type='submit' className='bg-[#249991] mt-4 text-white px-8 py-3 cursor-pointer rounded-full' style={{ fontFamily: 'Outfit' }}>{loading ? 'saving...' : 'Save Changes'}</button>
+                        <button type='submit' className='bg-[#6367FF] mt-4 text-white px-8 py-3 cursor-pointer rounded-full' style={{ fontFamily: 'Outfit' }}>{loading ? 'saving...' : 'Save Changes'}</button>
                     </div>
                 </form>
             </div>

@@ -8,10 +8,10 @@ const Contact = () => {
     <>
       <div className='border-b border-[#e0e0e0] mb-10'>
         <div className="container mx-auto px-4 py-2">
-          <span className='text-[#249991] font-medium leading-[24px]' style={{ fontFamily: 'Lato' }}>Contact Us</span>
+          <span className='text-[#6367FF] font-medium leading-[24px]' style={{ fontFamily: 'Lato' }}>Contact Us</span>
         </div>
       </div>
-      <div className='bg-[#249991] py-12'>
+      <div className='bg-[#6367FF] py-12'>
         <div className="container px-4 mx-auto">
           <h2 className='text-[25px] font-semibold text-white text-center py-4'>SAY HELLO!</h2>
           <h6 className='leading-[24px] lg:text-lg text-white py-5' style={{fontFamily: 'Andada Pro'}}>Be informed that each email is received, read and taken very seriously. However, due to huge amount of emails, we may reply only those emails that require response from ProPakistani.</h6>

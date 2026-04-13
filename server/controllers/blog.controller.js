@@ -49,8 +49,17 @@ export const addBlog = async (req, res) => {
 }
 
 export const getAllBlogs = (req, res) => {
-    const sql = 'SELECT * FROM blogs';
+    const sql = 'SELECT _id, title, category, image, created_At FROM blogs';
     db.query(sql, (err, data) => {
+        if (err) return res.status(500).json({ success: false, messege: "Error in getting blogs: " + err })
+        res.status(200).json(data)
+    })
+}
+
+export const getCategoryBlogs = (req, res) => {
+    const { category } = req.params;
+    const sql = 'SELECT _id, title, category, image, created_At FROM blogs WHERE category = ?';
+    db.query(sql, [category], (err, data) => {
         if (err) return res.status(500).json({ success: false, messege: "Error in getting blogs: " + err })
         res.status(200).json(data)
     })
@@ -58,7 +67,7 @@ export const getAllBlogs = (req, res) => {
 
 export const getUserOwnBlogs = (req, res) => {
     const user = req.user;
-    const sql = "SELECT * FROM blogs WHERE created_By = ?"
+    const sql = "SELECT _id, title, category, image, created_At, created_By FROM blogs WHERE created_By = ?"
     db.query(sql, [user], (err, data) => {
         if (err) return res.status(500).json({ success: false, messege: "Error in getting own blogs: " + err })
         res.status(200).json(data)
@@ -80,15 +89,6 @@ export const getSingleBlog = (req, res) => {
     db.query(sql, [blog_id], (err, data) => {
         if (err) return res.status(500).json({ success: false, messege: "Error in getting single blog: " + err })
         res.status(200).json(data)
-    })
-}
-
-export const getSearchBlogs = (req, res) => {
-    const search = req.query.q;
-    const sql = "SELECT * FROM blogs WHERE title LIKE ?";
-    db.query(sql, [`%${search}%`], (err, data) => {
-        if (err) return res.status(500).json(err)
-        res.json(data)
     })
 }
 

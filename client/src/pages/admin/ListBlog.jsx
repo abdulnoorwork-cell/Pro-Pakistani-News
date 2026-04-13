@@ -8,9 +8,9 @@ import edit_icon from '../../assets/edit_icon.png'
 
 const ListBlog = () => {
   const [blogs, setBlogs] = useState([]);
-  const { backendUrl, navigate, token } = useContext(AppContext);
+  const { backendUrl, navigate, token,fetchBlogs } = useContext(AppContext);
 
-  const fetchBlogs = async () => {
+  const fetchOwnBlogs = async () => {
     let response = await axios.get(`${backendUrl}/api/blog/get-own-blogs`, {
       headers: {
         Authorization: `${token}`
@@ -27,6 +27,7 @@ const ListBlog = () => {
       const response = await axios.delete(`${backendUrl}/api/blog/delete/${blogId}`, { withCredentials: true });
       if (response.data.success) {
         toast.success(response.data.messege)
+        await fetchOwnBlogs()
         await fetchBlogs();
       }
     } catch (error) {
@@ -36,7 +37,7 @@ const ListBlog = () => {
   }
 
   useEffect(() => {
-    fetchBlogs()
+    fetchOwnBlogs()
   }, [])
 
   return (

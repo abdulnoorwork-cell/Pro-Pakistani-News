@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
-import {AppContext} from '../../context/AppContext';
+import { AppContext } from '../../context/AppContext';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import upload_area from '../../assets/upload_area.svg'
@@ -14,37 +14,39 @@ const AddBlog = () => {
 
   const [image, setImage] = useState(false);
   const [title, setTitle] = useState('');
-  const [category,setCategory]=useState('')
+  const [category, setCategory] = useState('')
   const [description, setDescription] = useState('')
 
-  const { backendUrl, token } = useContext(AppContext);
+  const { backendUrl, token, fetchBlogs } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault()
     try {
       setLoading(true);
-      const formData= new FormData();
+      const formData = new FormData();
       formData.append('title', title);
       formData.append('description', quillRef.current.root.innerHTML);
       formData.append('image', image);
-      formData.append('category',category);
-      
-      const response =await axios.post(`${backendUrl}/api/blog/add`,formData,{
-        headers:{
+      formData.append('category', category);
+
+      const response = await axios.post(`${backendUrl}/api/blog/add`, formData, {
+        headers: {
           Authorization: `${token}`
         },
         withCredentials: true
       })
-      if(response.data.success) {
+      if (response.data.success) {
         toast.success(response.data.messege);
         setLoading(false);
         setImage(false);
         setTitle('');
+        await fetchBlogs()
         quillRef.current.innerHTML = '';
-        setTimeout(()=>{
+        setTimeout(() => {
+          fetchBlogs()
           navigate('/admin/listblog')
-        },1000)
+        }, 1000)
       }
       setLoading(false);
     } catch (error) {
@@ -54,24 +56,24 @@ const AddBlog = () => {
     }
   }
 
-  useEffect(()=>{
-    if(!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current,{theme: 'snow'})
+  useEffect(() => {
+    if (!quillRef.current && editorRef.current) {
+      quillRef.current = new Quill(editorRef.current, { theme: 'snow' })
     }
-  },[])
+  }, [])
 
   return (
     <form onSubmit={onSubmitHandler} className='flex w-full justify-center p-5 sm:p-8 lg:p-10 text-gray-600 h-full min-h-[85vh]'>
       <div className='bg-white flex flex-col w-full max-w-[620px] p-8 md:p-10 shadow rounded'>
         <label htmlFor="image">
           <img src={!image ? upload_area : URL.createObjectURL(image)} className='rounded cursor-pointer max-h-24 max-w-24' alt="" />
-          <input type="file" onChange={(e)=> setImage(e.target.files[0])} hidden id='image' />
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} hidden id='image' />
         </label>
         <p className='mt-4 text-sm font-medium'>News title</p>
-        <input type="text" placeholder='Type...' value={title} onChange={(e)=>setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#249991] rounded text-sm' required />
+        <input type="text" placeholder='Type...' value={title} onChange={(e) => setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#249991] rounded text-sm' required />
         <p className='mt-4 mb-2 text-sm font-medium'>News Description</p>
         <div ref={editorRef} className='w-full relative sm:min-h-[160px] min-h-[120px] sm:max-h-[360px] max-h-[300px] overflow-y-auto sm:text-sm text-xs'></div>
-        <select defaultValue={0} onChange={(e)=>setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded sm:text-sm text-xs font-medium'>
+        <select defaultValue={0} onChange={(e) => setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded sm:text-sm text-xs font-medium'>
           <option disabled value={0}>--Select Category--</option>
           <option value="Tech and Telecom">Tech and Telecom</option>
           <option value="Business">Business</option>
@@ -84,7 +86,7 @@ const AddBlog = () => {
           <option value="Social">Social</option>
           <option value="World Cup">World Cup</option>
         </select>
-        <button type='submit' className='mt-7 text-sm px-8 w-fit py-[10px] bg-[#6367FF] text-white rounded cursor-pointer' style={{fontFamily:'Poppins'}}>{loading ? 'Ading...' : 'Add News'}</button>
+        <button type='submit' className='mt-7 text-sm px-8 w-fit py-[10px] bg-[#6367FF] text-white rounded cursor-pointer' style={{ fontFamily: 'Poppins' }}>{loading ? 'Ading...' : 'Add News'}</button>
       </div>
     </form>
   )
