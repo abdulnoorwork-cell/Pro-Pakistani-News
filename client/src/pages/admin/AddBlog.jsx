@@ -61,8 +61,8 @@ const AddBlog = () => {
   },[])
 
   return (
-    <form onSubmit={onSubmitHandler} className='flex-1 px-4 py-8 lg:py-10 lg:px-14 bg-blue-50/50 text-gray-600 h-full min-h-[85vh]'>
-      <div className='bg-white flex flex-col w-full max-w-[620px] p-6 md:p-10 shadow rounded'>
+    <form onSubmit={onSubmitHandler} className='flex w-full justify-center p-5 sm:p-8 lg:p-10 text-gray-600 h-full min-h-[85vh]'>
+      <div className='bg-white flex flex-col w-full max-w-[620px] p-8 md:p-10 shadow rounded'>
         <label htmlFor="image">
           <img src={!image ? upload_area : URL.createObjectURL(image)} className='rounded cursor-pointer max-h-24 max-w-24' alt="" />
           <input type="file" onChange={(e)=> setImage(e.target.files[0])} hidden id='image' />
@@ -70,8 +70,8 @@ const AddBlog = () => {
         <p className='mt-4 text-sm font-medium'>News title</p>
         <input type="text" placeholder='Type...' value={title} onChange={(e)=>setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#249991] rounded text-sm' required />
         <p className='mt-4 mb-2 text-sm font-medium'>News Description</p>
-        <div ref={editorRef} className='w-full relative min-h-[160px] max-h-[360px] overflow-y-auto'></div>
-        <select defaultValue={0} onChange={(e)=>setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded text-sm font-medium'>
+        <div ref={editorRef} className='w-full relative sm:min-h-[160px] min-h-[120px] sm:max-h-[360px] max-h-[300px] overflow-y-auto sm:text-sm text-xs'></div>
+        <select defaultValue={0} onChange={(e)=>setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded sm:text-sm text-xs font-medium'>
           <option disabled value={0}>--Select Category--</option>
           <option value="Tech and Telecom">Tech and Telecom</option>
           <option value="Business">Business</option>
@@ -84,7 +84,7 @@ const AddBlog = () => {
           <option value="Social">Social</option>
           <option value="World Cup">World Cup</option>
         </select>
-        <button type='submit' className='mt-7 sm:text-sm text-xs px-8 w-fit py-[10px] bg-[#6367FF] text-white rounded cursor-pointer' style={{fontFamily:'Poppins'}}>{loading ? 'Ading...' : 'Add News'}</button>
+        <button type='submit' className='mt-7 text-sm px-8 w-fit py-[10px] bg-[#6367FF] text-white rounded cursor-pointer' style={{fontFamily:'Poppins'}}>{loading ? 'Ading...' : 'Add News'}</button>
       </div>
     </form>
   )

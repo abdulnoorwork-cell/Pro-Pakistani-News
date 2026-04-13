@@ -49,8 +49,8 @@ app.get('/',(_,res)=>{
 app.use('/api/user',userRoutes);
 app.use('/api/blog', blogRoutes);
 
-// app.listen(Port,()=>{
-//     console.log(`Server is running http://localhost:${Port}`)
-// })
+app.listen(Port,()=>{
+    console.log(`Server is running http://localhost:${Port}`)
+})
 
 export default app

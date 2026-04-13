@@ -40,11 +40,11 @@ const ListBlog = () => {
   }, [])
 
   return (
-    <div className='flex-1 px-4 py-8 lg:py-10 lg:px-14 bg-blue-50/50'>
-      <h1 className='text-gray-800 font-medium' style={{ fontFamily: 'Urbanist' }}>Blogs List</h1>
-      <div className='relative max-h-[80vh] mt-4 max-w-4xl overflow-x-auto shadow rounded-lg scrollbar-hide bg-white'>
+    <div className='flex-1 px-4 py-8 lg:py-10 lg:px-14'>
+      <h1 className='text-gray-800 text-xl font-semibold' style={{ fontFamily: 'Montserrat' }}>Blogs List</h1>
+      <div className='relative max-h-[75vh] mt-4 max-w-4xl overflow-x-auto shadow rounded-lg scrollbar-hide bg-white'>
         <div className='w-full text-sm text-gray-800'>
-          <div className='blog_list_title text-xs uppercase p-3 border-b font-semibold sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 text-[#3e484e] font-medium hidden'>
+          <div className='blog_list_title bg-[#6367FF] text-white font-semibold text-xs uppercase p-3 border-b sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 hidden'>
             <label>News</label>
             <label>Title</label>
             <label className='mx-auto'>Category</label>

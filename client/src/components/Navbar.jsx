@@ -98,7 +98,7 @@ const Navbar = () => {
             <li className={`py-[10px] pl-5 ${activePage === 'Contact' ? 'bg-[#eff4f5]' : 'bg-none'}`}>
               <NavLink onClick={() => { setActivePage('Contact'); setMobileMenu(false) }} to={'/contact'}>Contact</NavLink>
             </li>
-            {!token ? <Link onClick={() => { setActivePage('Login'); setMobileMenu(false); setMobileMenu(false) }} to={'/signin'} className={`py-[10px] pl-5 ${activePage === 'Login' ? 'bg-[#eff4f5]' : 'bg-none'}`}>LOGIN</Link> : <Link onClick={() => { setActivePage('My Profile'); setMobileMenu(false) }} to={'/my-account'} className={`py-[10px] pl-5 ${activePage === 'My Profile' ? 'bg-[#eff4f5]' : 'bg-none'}`}>My Profile</Link>}
+            {!token ? <Link onClick={() => { setActivePage('Login'); setMobileMenu(false); setMobileMenu(false) }} to={'/signin'} className={`py-[10px] pl-5 ${activePage === 'Login' ? 'bg-[#eff4f5]' : 'bg-none'}`}>Login</Link> : <Link onClick={() => { setActivePage('My Profile'); setMobileMenu(false) }} to={'/my-account'} className={`py-[10px] pl-5 ${activePage === 'My Profile' ? 'bg-[#eff4f5]' : 'bg-none'}`}>My Profile</Link>}
           </ul>
           <li className={`flex z-40 xl:hidden sm:w-[60%] w-[93%] shadow-md mx-auto text-[16px] transition-all h-full items-center absolute top-[100%] right-[10px] ${searchBox ? 'flex' : 'hidden'}`}>
             <input type="text" placeholder='Search...' className='h-full bg-[white] w-full outline-none px-4' value={search} onChange={(e) => setSearch(e.target.value)} />

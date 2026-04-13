@@ -42,13 +42,13 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div className='flex-1 px-4 py-8 lg:px-10 bg-[#f6f9faf1]'>
+    <div className='flex-1 px-4 py-8 lg:px-10'>
       <div className='flex flex-wrap gap-4'>
         <div className='flex items-center gap-3 bg-white p-4 min-w-58 rounded shadow cursor-pointer hover:scale-105 transition-all'>
           <img src={dashboard_icon_1} className='w-14' alt="" />
           <div>
             <p className='text-xl font-semibold text-gray-600'>{blogs.length}</p>
-            <p className='text-gray-500 text-sm'>Total News</p>
+            <p className='text-gray-500 text-sm'>My News</p>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@ const Dashboard = () => {
       <div className='max-w-4xl'>
         <div className='flex items-center gap-3 mb-4 mt-7 text-[#3e484e]'>
           <img src={dashboard_icon_4} alt="" />
-          <p className='text-sm' style={{ fontFamily: 'Poppins' }}>Recent News</p>
+          <p className='font-semibold'>Recent News</p>
         </div>
-        <div className='blog_list_title text-xs uppercase p-3 border-b font-semibold sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 text-[#3e484e] font-medium hidden'>
+        <div className='blog_list_title bg-[#6367FF] text-white font-semibold text-xs uppercase p-3 border-b sm:grid lg:grid-cols-[1fr_3fr_1fr_1fr_1fr] sm:grid-cols-[1fr_3fr_1fr_1fr] gap-2 hidden'>
           <label>News</label>
           <label>Title</label>
           <label className='mx-auto'>Category</label>
