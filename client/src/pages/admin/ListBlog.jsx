@@ -69,7 +69,7 @@ const ListBlog = () => {
                 </div>
               ))}
             </div> :
-            <div className='text-gray-800 font-medium text-[16px] text-center py-10'>You don,t have any blogs</div>}
+            <div className='text-gray-800 font-medium text-sm text-center py-10'>You don,t have any blogs</div>}
         </div>
       </div>
     </div>

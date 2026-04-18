@@ -63,7 +63,7 @@ const App = () => {
           <Route path='updateblog/:blogId' element={<UpdateBlog />} />
         </Route> : null}
       </Routes>
-      <Toaster />
+      <Toaster toastOptions={{style:{fontFamily:"Poppins"}}} />
     </div>
   )
 }

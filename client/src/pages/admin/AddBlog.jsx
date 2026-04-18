@@ -70,10 +70,10 @@ const AddBlog = () => {
           <input type="file" onChange={(e) => setImage(e.target.files[0])} hidden id='image' />
         </label>
         <p className='mt-4 text-sm font-medium'>News title</p>
-        <input type="text" placeholder='Type...' value={title} onChange={(e) => setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#249991] rounded text-sm' required />
+        <input type="text" placeholder='Type...' value={title} onChange={(e) => setTitle(e.target.value)} className='w-full mt-2 p-2 min-h-10 text-gray-600 border border-gray-300 outline-[#6367FF] rounded text-sm' required />
         <p className='mt-4 mb-2 text-sm font-medium'>News Description</p>
         <div ref={editorRef} className='w-full relative sm:min-h-[160px] min-h-[120px] sm:max-h-[360px] max-h-[300px] overflow-y-auto sm:text-sm text-xs'></div>
-        <select defaultValue={0} onChange={(e) => setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#249991] rounded sm:text-sm text-xs font-medium'>
+        <select defaultValue={0} onChange={(e) => setCategory(e.target.value)} className='w-fit mt-5 p-2 min-h-10 text-gray-600 bg-white border border-gray-400 outline-[#6367FF] rounded sm:text-sm text-xs font-medium'>
           <option disabled value={0}>--Select Category--</option>
           <option value="Tech and Telecom">Tech and Telecom</option>
           <option value="Business">Business</option>

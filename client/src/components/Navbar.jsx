@@ -25,8 +25,7 @@ const Navbar = () => {
     localStorage.removeItem('User')
     toast.success('Logout Successfully')
     setTimeout(() => {
-      window.location.reload()
-      navigate('/login')
+      window.location.href = '/signin'
     }, 1000)
   }
 

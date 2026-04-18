@@ -18,7 +18,7 @@ const MyAccount = () => {
     const [label, setLabel] = useState('My details')
     const [loading, setLoading] = useState(false);
     const [model, setModel] = useState(false);
-    const { userData, backendUrl, userId, fetchUser, token, navigate, userRole } = useContext(AppContext);
+    const { userData, backendUrl, userId, token, navigate, userRole,fetchUserData } = useContext(AppContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -27,16 +27,15 @@ const MyAccount = () => {
 
     const file = useRef();
 
-    const fetchUserData = async () => {
+    const fetchUser= async () => {
         if (token) {
             try {
                 let response = await axios.get(`${backendUrl}/api/user/user-data/${userId}`, { withCredentials: true })
-                console.log(response.data[0])
                 if (response.data) {
                     setName(response?.data[0]?.name)
                     setEmail(response?.data[0]?.email);
                     setPhone(response?.data[0]?.phone);
-                    setPreviewImage(JSON.parse(response?.data[0]?.profile_image))
+                    setPreviewImage(response?.data[0]?.profile_image)
                 }
             } catch (error) {
                 console.log(error)
@@ -45,7 +44,7 @@ const MyAccount = () => {
     }
 
     useEffect(() => {
-        fetchUserData()
+        fetchUser()
     }, [])
 
     const updateUserHandler = async (e) => {
@@ -67,7 +66,8 @@ const MyAccount = () => {
                 setLoading(false)
                 toast.success(response.data.messege);
                 setModel(false)
-                fetchUser();
+                await fetchUser();
+                await fetchUserData();
             }
             setLoading(false)
         } catch (error) {
@@ -91,8 +91,7 @@ const MyAccount = () => {
         localStorage.removeItem('User')
         toast.success('Logout Successfully')
         setTimeout(() => {
-            window.location.reload()
-            navigate('/login')
+            window.location.href = '/signin'
         }, 1000)
     }
 
@@ -135,17 +134,17 @@ const MyAccount = () => {
                             <h6 className='text-2xl font-semibold text-gray-800 mb-4'>My details</h6>
                             <div className='flex items-center gap-3'>
                                 <figure>
-                                    <img src={userData?.image ? JSON.parse(userData?.image) : previewImage} className='w-[85px] h-[85px] rounded-full' alt="" />
+                                    <img src={userData.profile_image ? userData.profile_image : profile} className='w-[85px] h-[85px] rounded-full' alt="" />
                                 </figure>
                                 <p className='text-gray-800 font-semibold text-xl'>{userData?.name}</p>
                             </div>
                             <div className='mt-5'>
                                 <p className='text-gray-800 font-medium'>Email :</p>
-                                <h6 className='text-gray-600 text-sm'>{userData?.email}</h6>
+                                <h6 className='text-gray-600 text-base'>{userData?.email}</h6>
                             </div>
                             <div className='mt-5'>
                                 <p className='text-gray-800 font-medium'>Phone :</p>
-                                <h6 className='text-gray-600 text-sm'>{userData?.phone}</h6>
+                                <h6 className='text-gray-600 text-base'>{userData?.phone}</h6>
                             </div>
                         </div>
                     </div>
@@ -168,7 +167,7 @@ const MyAccount = () => {
                             <label className='ml-1'>Phone</label>
                             <input required onChange={(e) => setPhone(e.target.value)} name='phone' value={phone} className='border bg-[#f4f7fa] border-gray-300 py-[10px] rounded-[10px] px-3.5 w-full outline-none' type="number" placeholder='Phone' />
                         </div>
-                        <img src={previewImage} onClick={() => file.current.click()} className='w-[75px] h-[75px] rounded-full cursor-pointer mt-1' alt="profile image" />
+                        <img src={userData.profile_image ? userData.profile_image : profile} onClick={() => file.current.click()} className='w-[75px] h-[75px] rounded-full cursor-pointer mt-1' alt="profile image" />
                         <input type="file" ref={file} onChange={imageHandler} hidden />
                         <button type='submit' className='bg-[#6367FF] mt-4 text-white px-8 py-3 cursor-pointer rounded-full' style={{ fontFamily: 'Outfit' }}>{loading ? 'saving...' : 'Save Changes'}</button>
                     </div>

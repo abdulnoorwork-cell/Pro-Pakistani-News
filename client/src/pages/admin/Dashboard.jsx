@@ -85,9 +85,9 @@ const Dashboard = () => {
                     </div>
                   ))}
                 </div> :
-                <div className='text-gray-800 font-medium text-[16px] text-center py-10'>You don,t have any blogs</div>}
+                <div className='text-gray-800 font-medium text-[16px] text-center py-10 w-full bg-white text-sm'>You don,t have any blogs</div>}
             </div>
-          </div> : <div className='font-medium min-h-[100px] text-sm flex items-center justify-center text-center bg-white rounded-md max-w-2xl'>You don,t have any blogs</div>}
+          </div> : <div className='font-medium min-h-[100px] text-sm flex items-center justify-center text-center bg-white rounded-md w-full'>You don,t have any blogs</div>}
       </div>
     </div >
   )

@@ -9,8 +9,11 @@ export const signup = async (req, res) => {
         const { name, email, password, phone, role } = req.body;
 
         // ✅ Validation
-        if (!name || !email || !password || !role) {
-            return res.status(400).json({ success: false, messege: "All fields are required" });
+        if (!name || !email || !password) {
+            return res.status(400).json({ success: false, messege: "Please fill required fileds" });
+        }
+        if(!role) {
+            return res.status(400).json({ success: false, messege: "Please select role" });
         }
 
         if (password.length < 8) {
@@ -110,7 +113,7 @@ export const login = async (req, res) => {
         if (!data.length) {
             return res.status(400).json({
                 success: false,
-                messege: "Email not found"
+                messege: "Invalid email or password"
             });
         }
 
@@ -118,10 +121,10 @@ export const login = async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
 
-        if (!isMatch) {
+        if (!isMatch || email !== req.body.email) {
             return res.status(400).json({
                 success: false,
-                messege: "Incorrect password"
+                messege: "Invalid email or password"
             });
         }
 

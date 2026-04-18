@@ -13,8 +13,7 @@ const Layout = () => {
     localStorage.removeItem('User');
     toast.success('Logout Successfully')
     setTimeout(() => {
-      navigate('/')
-      window.location.reload()
+      window.location.href = '/'
     }, 1000)
   }
   return (

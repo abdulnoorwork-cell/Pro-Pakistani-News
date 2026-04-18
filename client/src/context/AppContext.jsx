@@ -9,10 +9,10 @@ const AppContextProvider = ({ children }) => {
     const [blogs, setBogs] = useState([]);
     const [authenticated, setAuthenticated] = useState(localStorage.getItem('User') ? JSON.parse(localStorage.getItem('User')) : undefined);
     const token = authenticated?.token;
-    const userId = authenticated?.data[0]?._id
+    const userId = authenticated?.user._id
     const navigate = useNavigate();
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
-    const userRole = authenticated?.data[0].role;
+    const userRole = authenticated?.user.role;
     const fetchUserData = async () => {
         try {
             let response = await axios.get(`${backendUrl}/api/user/user-data/${userId}`);
@@ -47,7 +47,8 @@ const AppContextProvider = ({ children }) => {
         userId,
         userRole,
         blogs,
-        fetchBlogs
+        fetchBlogs,
+        fetchUserData
     }
     return (
         <AppContext.Provider value={values}>

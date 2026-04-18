@@ -26,11 +26,11 @@ const UpdateBlog = () => {
     try {
       let response = await axios.get(`${backendUrl}/api/blog/blog-detail/${blogId}`, { withCredentials: true });
       if (response.data) {
-        setBlog(response.data[0])
-        setTitle(response.data[0].title);
-        setDescription(response.data[0].description);
-        quillRef.current.root.innerHTML = response.data[0].description
-        setCategory(response.data[0].category);
+        setBlog(response.data)
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+        quillRef.current.root.innerHTML = response.data.description
+        setCategory(response.data.category);
       }
     } catch (error) {
       console.log(error)
