@@ -65,7 +65,6 @@ const Signin = () => {
     } catch (error) {
       setLoading(false)
       console.log(error.response.data.messege)
-      { error.response.data.messege === 'Email already exist' ? toast.error(error.response.data.messege) : null }
       setError(error.response.data.messege)
     }
   }
