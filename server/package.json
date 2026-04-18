@@ -5,7 +5,7 @@
   "main": "api/server.js",
   "scripts": {
     "start": "node api/server.js",
-    "dev":"nodemon api/server.js"
+    "dev": "nodemon api/server.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "express-fileupload": "^1.5.2",
     "jsonwebtoken": "^9.0.3",
     "mysql": "^2.18.1",
+    "mysql2": "^3.22.1",
     "nodemon": "^3.1.14"
   }
 }

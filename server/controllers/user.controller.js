@@ -116,67 +116,95 @@ export const login = async (req, res) => {
                 sameSite: "strict",
                 maxAge: 60 * 60 * 1000
             })
-            res.status(200).json({ success: true, messege: `Welcome back ${data[0].name}`, data, token,expiresIn: 86400 })
+            res.status(200).json({ success: true, messege: `Welcome back ${data[0].name}`, data, token, expiresIn: 86400 })
         } else {
             return res.status(400).json("No email exist")
         }
     })
 }
 
-export const getUser = (req, res) => {
-    const { user_id } = req.params;
-    const sql = 'SELECT * FROM users WHERE _id = ?';
-    db.query(sql, [user_id], (err, data) => {
-        if (err) {
-            return res.status(500).json({ success: false, messege: "Error in getting user: " + err })
-        } else {
-            res.status(200).json(data)
-        }
-    })
-}
+export const getUser = async (req, res) => {
+    try {
+        const { user_id } = req.params;
+
+        const sql = 'SELECT * FROM users WHERE _id = ?';
+        const [data] = await db.query(sql, [user_id]);
+
+        return res.status(200).json(data);
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            messege: "Error in getting user: " + err.message
+        });
+    }
+};
 
 export const updateUser = async (req, res) => {
-    if (req.body.profile_image !== '') {
+    try {
         const { name, email, phone } = req.body;
-        if (!name || !email) {
-            return res.status(400).json({ success: false, messege: "Please fill required fields" })
-        }
         const { user_id } = req.params;
-        const { profile_image } = req.files;
-        const allowedFormat = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
-        if (!allowedFormat.includes(profile_image.mimetype)) {
-            return res.status(400).json({ success: false, messege: "Invalid Format! Only jpg, jpeg, png, webp are allowed" });
+
+        if (!name || !email) {
+            return res.status(400).json({
+                success: false,
+                messege: "Please fill required fields"
+            });
         }
-        const cloudinaryResponse = await cloudinary.uploader.upload(profile_image.tempFilePath, {
-            overwrite: true
-        })
-        if (!cloudinaryResponse || cloudinaryResponse.error) {
-            return console.log(cloudinaryResponse.error)
-        }
-        const imgUrl = cloudinaryResponse.url;
-        const sql = 'UPDATE users SET name = ?, email = ?, phone = ?, profile_image = ? WHERE _id = ?';
-        const values = [name, email, phone, JSON.stringify(imgUrl)];
-        db.query(sql, [...values, user_id], (err, data) => {
-            if (err) {
-                return res.status(500).json({ success: false, messege: "Error in updating user: " + err })
-            } else {
-                res.status(200).json({ success: true, messege: "Profile updated" })
+
+        let imgUrl = null;
+
+        // ✅ If image exists
+        if (req.files && req.files.profile_image) {
+            const { profile_image } = req.files;
+
+            const allowedFormat = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+
+            if (!allowedFormat.includes(profile_image.mimetype)) {
+                return res.status(400).json({
+                    success: false,
+                    messege: "Invalid Format! Only jpg, jpeg, png, webp are allowed"
+                });
             }
-        })
-        return
-    }
-    const { name, email, phone } = req.body;
-    if (!name || !email) {
-        return res.status(400).json({ success: false, messege: "Please fill required fields" })
-    }
-    const { user_id } = req.params;
-    const sql = 'UPDATE users SET name = ?, email = ?, phone = ? WHERE _id = ?';
-    const values = [name, email, phone];
-    db.query(sql, [...values, user_id], (err, data) => {
-        if (err) {
-            return res.status(500).json({ success: false, messege: "Error in updating user: " + err })
-        } else {
-            res.status(200).json({ success: true, messege: "Profile updated" })
+
+            const cloudinaryResponse = await cloudinary.uploader.upload(
+                profile_image.tempFilePath,
+                { overwrite: true }
+            );
+
+            if (!cloudinaryResponse || cloudinaryResponse.error) {
+                return res.status(500).json({
+                    success: false,
+                    messege: "Image upload failed"
+                });
+            }
+
+            imgUrl = cloudinaryResponse.url;
         }
-    })
-}
+
+        // ✅ Build query dynamically
+        let sql;
+        let values;
+
+        if (imgUrl) {
+            sql = 'UPDATE users SET name = ?, email = ?, phone = ?, profile_image = ? WHERE _id = ?';
+            values = [name, email, phone, imgUrl, user_id];
+        } else {
+            sql = 'UPDATE users SET name = ?, email = ?, phone = ? WHERE _id = ?';
+            values = [name, email, phone, user_id];
+        }
+
+        await db.query(sql, values);
+
+        return res.status(200).json({
+            success: true,
+            messege: "Profile updated"
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            messege: "Error in updating user: " + err.message
+        });
+    }
+};
