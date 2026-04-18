@@ -11,11 +11,12 @@ import blogRoutes from '../routes/blog.routes.js'
 const app = express();
 const Port = process.env.PORT || 8000;
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/"
+    tempFileDir: "/tmp/",
+    limits:{fileSize:50*1024*1024}
 }))
 app.use(cookieParser());
 
@@ -24,15 +25,15 @@ const allowedOrigin = [
 ]
 
 const corsOptions = {
-    origin: function (origin,callback) {
-        if(allowedOrigin.indexOf(origin !== -1) || !origin){
-            callback(null,true)
-        }else {
+    origin: function (origin, callback) {
+        if (allowedOrigin.indexOf(origin !== -1) || !origin) {
+            callback(null, true)
+        } else {
             callback(new Error("Not allowed by cors policy"))
-        } 
+        }
     },
     methods: "GET,POST,PUT,DELETE,PATCH,HEAD",
-    credentials:true
+    credentials: true
 }
 app.use(cors(corsOptions));
 
@@ -42,14 +43,14 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-app.get('/',(_,res)=>{
-    res.status(200).json({success: true,messege:"Response from the server"})
+app.get('/', (_, res) => {
+    res.status(200).json({ success: true, messege: "Response from the server" })
 })
 
-app.use('/api/user',userRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/blog', blogRoutes);
 
-app.listen(Port,()=>{
+app.listen(Port, () => {
     console.log(`Server is running http://localhost:${Port}`)
 })
 
