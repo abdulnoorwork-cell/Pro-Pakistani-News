@@ -5,123 +5,154 @@ import generateToken from '../config/token.js';
 import 'dotenv/config'
 
 export const signup = async (req, res) => {
-    if (req.body.profile_image !== '') {
-        const { profile_image } = req.files;
-        if (!req.files || Object.keys(req.files).length === 0 || !profile_image) {
-            return res.status(400).json({ success: false, messege: 'No file uploaded' });
-        }
+    try {
         const { name, email, password, phone, role } = req.body;
-        if (!name) {
-            return res.status(400).json("Please enter the name")
+
+        // ✅ Validation
+        if (!name || !email || !password || !role) {
+            return res.status(400).json({ success: false, messege: "All fields are required" });
         }
-        if (!email) {
-            return res.status(400).json("Please enter the email")
-        }
-        if (!password) {
-            return res.status(400).json("Please enter the password")
-        }
-        if (!role) {
-            return res.status(400).json("Please select user role")
-        }
+
         if (password.length < 8) {
-            return res.status(400).json("Password contains 8 characters long")
+            return res.status(400).json({
+                success: false,
+                messege: "Password must be at least 8 characters"
+            });
         }
+
+        // ✅ Check existing user
+        const [existing] = await db.query(
+            "SELECT _id FROM users WHERE email = ?",
+            [email]
+        );
+
+        if (existing.length) {
+            return res.status(400).json({
+                success: false,
+                messege: "Email already exists"
+            });
+        }
+
+        // ✅ Hash password
         const hashPassword = await bcrypt.hash(password, 10);
-        const allowedFormat = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp']
-        if (!allowedFormat.includes(profile_image.mimetype)) {
-            return res.status(400).json({ success: false, messege: "Invalid Format! Only jpg, jpeg, png, webp are allowed" })
+
+        let imageUrl = null;
+
+        // ✅ Handle image if exists
+        if (req.files && req.files.profile_image) {
+            const file = req.files.profile_image;
+
+            const allowedFormat = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
+
+            if (!allowedFormat.includes(file.mimetype)) {
+                return res.status(400).json({
+                    success: false,
+                    messege: "Invalid image format"
+                });
+            }
+
+            const upload = await cloudinary.uploader.upload(file.tempFilePath);
+
+            if (!upload || upload.error) {
+                return res.status(500).json({
+                    success: false,
+                    messege: "Image upload failed"
+                });
+            }
+
+            imageUrl = upload.secure_url;
         }
-        const cloudinaryResponse = await cloudinary.uploader.upload(profile_image.tempFilePath);
-        if (!cloudinaryResponse || cloudinaryResponse.error) {
-            console.log(cloudinaryResponse.error)
-        }
-        const imgUrl = cloudinaryResponse.url;
-        const sql = 'INSERT INTO users(`name`,`email`,`password`,`phone`,`profile_image`,`role`) VALUES(?)';
-        const values = [
+
+        // ✅ Insert user
+        const sql = `
+      INSERT INTO users (name, email, password, phone, profile_image, role)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `;
+
+        await db.query(sql, [
             name,
             email,
             hashPassword,
-            phone,
-            JSON.stringify(imgUrl),
+            phone || null,
+            imageUrl,
             role
-        ]
-        db.query(sql, [values], (err, data) => {
-            if (err) {
-                console.log(err)
-                return res.status(500).json({ success: false, messege: "Email already exist" })
-            } else {
-                return res.status(201).json({ success: true, messege: "Signup Successfully" })
-            }
-        })
-        return
+        ]);
+
+        return res.status(201).json({
+            success: true,
+            messege: "Signup successful"
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            messege: err.message
+        });
     }
-    const { email, password, name, phone, role } = req.body;
-    if (!name) {
-        return res.status(400).json("Please enter the name")
-    }
-    if (!email) {
-        return res.status(400).json("Please enter the email")
-    }
-    if (!password) {
-        return res.status(400).json("Please enter the password")
-    }
-    if (!role) {
-        return res.status(400).json("Please select user role")
-    }
-    if (password.length < 2) {
-        return res.status(400).json("Password contains 2 characters long")
-    }
-    const hashPassword = await bcrypt.hash(password, 10);
-    const sql = 'INSERT INTO users(`name`,`email`,`password`,`phone`,`role`) VALUES(?)';
-    const values = [
-        name,
-        email,
-        hashPassword,
-        phone,
-        role
-    ]
-    db.query(sql, [values], (err, data) => {
-        if (err) {
-            console.log(err)
-            return res.status(500).json({ success: false, messege: "Email already exist" })
-        } else {
-            res.status(201).json({ success: true, messege: "Signup Successfully" })
-        }
-    })
-}
+};
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;
-    if (!email) {
-        return res.status(400).json("Please enter your email")
-    }
-    if (!password) {
-        return res.status(400).json("Please enter your password")
-    }
+    try {
+        const { email, password } = req.body;
 
-    const sql = 'SELECT * FROM users WHERE email = ?';
-    db.query(sql, email, async (err, data) => {
-        if (err) {
-            return res.status(500).json({ success: false, messege: "Error in login: " + err })
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                messege: "Email and password are required"
+            });
         }
-        if (data.length > 0) {
-            let isMatch = await bcrypt.compare(password, data[0].password);
-            if (!isMatch) {
-                return res.status(400).json("Incorrect Password")
-            }
-            let token = generateToken(data[0]._id);
-            res.cookie("token", token, {
-                httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
-                sameSite: "strict",
-                maxAge: 60 * 60 * 1000
-            })
-            res.status(200).json({ success: true, messege: `Welcome back ${data[0].name}`, data, token, expiresIn: 86400 })
-        } else {
-            return res.status(400).json("No email exist")
+
+        const [data] = await db.query(
+            "SELECT * FROM users WHERE email = ?",
+            [email]
+        );
+
+        if (!data.length) {
+            return res.status(400).json({
+                success: false,
+                messege: "Email not found"
+            });
         }
-    })
-}
+
+        const user = data[0];
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({
+                success: false,
+                messege: "Incorrect password"
+            });
+        }
+
+        // ✅ Generate token
+        const token = generateToken(user._id);
+
+        // ✅ Remove password before sending
+        delete user.password;
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 60 * 60 * 1000
+        });
+
+        return res.status(200).json({
+            success: true,
+            messege: `Welcome back ${user.name}`,
+            user,
+            token,
+            expiresIn: 86400
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            messege: err.message
+        });
+    }
+};
 
 export const getUser = async (req, res) => {
     try {
