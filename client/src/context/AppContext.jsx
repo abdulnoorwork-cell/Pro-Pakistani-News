@@ -13,6 +13,7 @@ const AppContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const userRole = authenticated?.user.role;
+    const [loading,setLoading]=useState(false);
     const fetchUserData = async () => {
         try {
             let response = await axios.get(`${backendUrl}/api/user/user-data/${userId}`);
@@ -25,12 +26,16 @@ const AppContextProvider = ({ children }) => {
     }
     const fetchBlogs = async () => {
         try {
+            setLoading(true)
             let response = await axios.get(`${backendUrl}/api/blog/get-blogs`);
             if (response.data) {
                 setBogs(response.data)
+                setLoading(false)
             }
+            setLoading(false)
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
 
@@ -48,7 +53,8 @@ const AppContextProvider = ({ children }) => {
         userRole,
         blogs,
         fetchBlogs,
-        fetchUserData
+        fetchUserData,
+        loading
     }
     return (
         <AppContext.Provider value={values}>
