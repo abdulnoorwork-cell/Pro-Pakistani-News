@@ -4,25 +4,31 @@ import { AppContext } from '../context/AppContext'
 import { FaAngleLeft, FaAngleRight, FaHome } from "react-icons/fa";
 import NewsCard from '../components/NewsCard'
 import axios from 'axios';
+import loading_animation from '../../public/loading_animation.svg'
 
 const CategoryNews = ({ category }) => {
-    const [blogs,setBlogs]=useState([]);
+    const [loading, setLoading] = useState(false)
+    const [blogs, setBlogs] = useState([]);
     const { backendUrl } = useContext(AppContext);
 
     const fetchCategoryBlogs = async () => {
         try {
-            let response = await axios.get(`${backendUrl}/api/blog/category/${category}`,{withCredentials: true});
+            setLoading(true)
+            let response = await axios.get(`${backendUrl}/api/blog/category/${category}`, { withCredentials: true });
             if (response.data) {
                 setBlogs(response.data)
+                setLoading(false)
             }
+            setLoading(false)
         } catch (error) {
             console.log(error)
+            setLoading(false)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchCategoryBlogs()
-    },[])
+    }, [category])
 
     const [itemsPerPage, setItemsPerPage] = useState(12)
     const [currentPage, setCurrentPage] = useState(1);
@@ -52,16 +58,20 @@ const CategoryNews = ({ category }) => {
 
     return (
         <div>
-            <div className="container mx-auto px-4 pb-10 pt-1">
+            <div className="container mx-auto px-4 pb-10 pt-1 min-h-[90vh]">
                 {/* Banner */}
                 <div className='bg-[#f6f9fa] my-5'>
                     <h1 className='xl:text-[25px] sm:text-[22px] text-xl font-semibold text-[#242a3a] flex items-center leading-none'><span className='py-[13px] px-[17px] bg-[#eff4f5] mr-5'><FaHome /></span> {category}</h1>
                 </div>
                 {/* News */}
-                <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-[15px]'>
-                    {currentBlogs?.map((blog, index) => (
-                        <NewsCard key={index} blog={blog} />
-                    ))}
+                <div>
+                    {loading ? <img src={loading_animation} className='mx-auto' alt="loader" /> :
+                        <div className='grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-[15px]'>
+                            {currentBlogs?.map((blog, index) => (
+                                <NewsCard key={index} blog={blog} />
+                            ))}
+                        </div>
+                    }
                 </div>
                 {/* Pagination Buttons */}
                 {totalPages > 1 ? (

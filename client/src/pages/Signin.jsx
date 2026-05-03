@@ -103,7 +103,7 @@ const Signin = () => {
   }
 
   return loginModel ? (
-    <div className='min-h-[86vh] h-full content-center justify-center bg-[#6367FF] py-10'>
+    <div className='min-h-[90vh] h-full content-center justify-center bg-[#6367FF] py-10'>
       <div className='container mx-auto px-3'>
         <form onSubmit={onLoginHandler} className='bg-white rounded-[10px] text-sm p-[40px] max-w-[700px] mx-auto'>
           <h2 className='text-gray-800 text-[26px] font-semibold' style={{ fontFamily: 'Urbanist' }}>Login</h2>
